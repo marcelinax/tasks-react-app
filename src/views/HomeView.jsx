@@ -16,7 +16,6 @@ export const HomeView = () => {
                     <TaskItem />
                     <TaskItem />
                 </div>
-
             </div>
         </div>
     );
