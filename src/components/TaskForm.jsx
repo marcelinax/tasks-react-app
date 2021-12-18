@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { Input } from './Input';
 import { PrimaryButton } from './PrimaryButton';
+import TasksContext from '../context/tasks/TasksContext';
+import { setTasks } from './../context/tasks/TasksActions';
 import { useAxios } from './../hooks/useAxios';
 
 export const TaskForm = () => {
@@ -24,6 +26,13 @@ export const TaskForm = () => {
             
         }
     });
+
+    const { dispatch } = useContext(TasksContext);
+
+    const {response: tasksResponse, fetchData: refreshTasks}= useAxios({
+        method: 'get',
+        url: '/'
+    });
     
     const onChange = (e) => {
         const { id, value } = e.target;
@@ -33,12 +42,14 @@ export const TaskForm = () => {
         });
     };
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault(); 
-        fetchData();
+        await fetchData();
+        await refreshTasks();
         clearForm();
         console.log(errors);
     };
+
 
 
     const clearForm = () => {
@@ -49,6 +60,11 @@ export const TaskForm = () => {
             photoUrl: ''
         });
     };
+
+    useEffect(() => {
+        if (tasksResponse)
+            dispatch(setTasks(tasksResponse));
+    },[tasksResponse]);
 
     return (
         <div className='bg-secondary w-full py-6 px-12 mb-20 rounded-lg shadow-md'>
