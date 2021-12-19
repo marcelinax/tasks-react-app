@@ -5,3 +5,10 @@ export const setTasks = (payload) => {
     };
 };
 
+export const deleteTask = (payload) => {
+    return {
+        type: 'DELETE_TASK',
+        payload
+    };
+};
+

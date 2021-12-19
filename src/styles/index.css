@@ -28,3 +28,22 @@
     background-color: #6FC5BE;
     opacity: 100%;
 }
+
+@layer utilities {
+    .scrollbar {
+      scrollbar-color: red white;
+      scrollbar-width: thin;
+    
+    }
+    .scrollbar::-webkit-scrollbar {
+        width: 7px;
+      }
+    .scrollbar::-webkit-scrollbar-track {
+        background: #404052;
+        border-radius: 20px;
+      }
+    .scrollbar::-webkit-scrollbar-thumb {
+        background: #20212C;
+        border-radius: 20px;
+      }
+  }

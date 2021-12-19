@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import TaskContext from '../context/tasks/TasksContext';
 import { TaskItem } from './TaskItem';
-import { getTasks } from './../context/tasks/TasksActions';
 
 export const TasksResult = () => {
     const { tasks } = useContext(TaskContext);
