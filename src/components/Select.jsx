@@ -19,7 +19,7 @@ export const Select = ({children,value}) => {
     },[showSelectOptions]);
 
     return (
-        <div className='py-3 px-4 text-white rounded-xl shadow-xl shadow-secondary/40 bg-transparent border-2 border-secondary relative min-w-[150px]' ref={selectRef}>
+        <div className='py-3 px-4 text-white rounded-xl shadow-xl  bg-transparent border-2 border-secondary relative min-w-[150px]' ref={selectRef}>
             <div className='w-full flex justify-between items-center' onClick={()=> {return setShowSelectOptions(true);}}>
                 <div className='text-sm select-none'>{value}</div>
                 {showSelectOptions? <FaChevronUp size={12}/> : <FaChevronDown size={12}/>}
@@ -30,7 +30,6 @@ export const Select = ({children,value}) => {
                     {children}
                 </div>
             )}
-            
         </div>
     );
 };

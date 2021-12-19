@@ -1,11 +1,36 @@
 import { FaPen, FaTimes } from 'react-icons/fa';
+import React, { useContext } from 'react';
 
+import EditFormContext from '../context/editForm/EditFormContext';
 import PropTypes from 'prop-types';
-import React from 'react';
 import { ToggleButton } from './ToggleButton';
 import moment from 'moment';
+import { useAxios } from './../hooks/useAxios';
+import { useRefreshTasks } from '../hooks/useRefreshTasks';
 
-export const TaskItem = ({title, content, photoUrl, end}) => {
+export const TaskItem = ({id, title, content, photoUrl, end }) => {
+
+    const { refreshTasks } = useRefreshTasks();
+    const { setEditedId } = useContext(EditFormContext);
+
+    const { fetchData: deleteTaskById } = useAxios({ 
+        method: 'delete',
+        url: `/${id}`,
+        
+    });
+
+    
+
+    const deleteTask = async () => {
+        await deleteTaskById();
+        await refreshTasks();
+    };
+
+    const editTask = () => {
+        setEditedId(id);
+    };
+
+
     return (
         <div className='w-full bg-primary rounded-lg overflow-hidden shadow-md mb-5'>
             <div className='w-full bg-secondary p-6 flex justify-between'>
@@ -14,8 +39,8 @@ export const TaskItem = ({title, content, photoUrl, end}) => {
                     <h1 className={`text-white font-medium ${!photoUrl && 'ml-2'}`}>{title}</h1>
                 </div>
                 <div className='flex items-center'>
-                    <FaPen className='cursor-pointer mr-3 hover:scale-125 transition-all' fill='#6FC5BE' />
-                    <FaTimes className='cursor-pointer hover:scale-125 transition-all' fill='#FA78A2' />
+                    <FaPen className='cursor-pointer mr-3 hover:scale-125 transition-all' fill='#6FC5BE' onClick={editTask}/>
+                    <FaTimes className='cursor-pointer hover:scale-125 transition-all' fill='#FA78A2' onClick={deleteTask}/>
                 </div>
             </div>
             <div className='w-full p-6'>
@@ -44,4 +69,5 @@ TaskItem.propTypes = {
     title: PropTypes.string,
     content: PropTypes.string,
     photoUrl: PropTypes.string,
+    id: PropTypes.string
 };

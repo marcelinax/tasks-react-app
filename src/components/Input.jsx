@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export const Input = ({ title, type, className, value, onChange, id }) => {
+export const Input = ({ title, type, className, value, onChange, id, error }) => {
 
     return (
         <div className={`flex flex-col w-full relative ${className}`}>
-            <label className='text-xs text-pink mb-2 font-medium absolute -top-2 left-4 bg-secondary z-10'>{title}</label>
-            <input type={type} className={'outline-none w-full rounded-lg py-3 px-4 bg-transparent border-2 border-gray text-white font-medium text-sm '} value={value} onChange={onChange} id={id} />
+            <label className='text-xs text-pink mb-2 font-medium absolute -top-2 left-4 bg-secondary z-10'>{error ? error : title}</label> 
+            <input type={type} className={`outline-none w-full rounded-lg py-3 px-4 bg-transparent border-2 ${error? 'border-pink':'border-gray'} text-white font-medium text-sm `} value={value} onChange={onChange} id={id} />
+           
         </div>
     );
 };

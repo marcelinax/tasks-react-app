@@ -5,10 +5,10 @@ export const setTasks = (payload) => {
     };
 };
 
+// id
 export const deleteTask = (payload) => {
     return {
         type: 'DELETE_TASK',
         payload
     };
 };
-

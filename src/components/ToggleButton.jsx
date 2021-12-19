@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-import Switch from 'react-switch';
-
 export const ToggleButton = () => {
     const [value, setValue] = useState(false);
 
