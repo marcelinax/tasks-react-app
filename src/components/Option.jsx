@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export const Option = ({title, onClick, isSelected}) => {
@@ -8,4 +9,9 @@ export const Option = ({title, onClick, isSelected}) => {
             </div>
         </div>
     );
+};
+
+Option.propTypes = {
+    title: PropTypes.string,
+    isSelected: PropTypes.bool
 };

@@ -4,11 +4,11 @@ import EditFormContext from '../context/editForm/EditFormContext';
 import { Input } from './Input';
 import { PrimaryButton } from './PrimaryButton';
 import TasksContext from '../context/tasks/TasksContext';
-import moment from 'moment';
 import { useAxios } from './../hooks/useAxios';
 import { useRefreshTasks } from '../hooks/useRefreshTasks';
 
 export const TaskForm = () => {
+
 
     const { editedId, setEditedId } = useContext(EditFormContext);
     const { tasks } = useContext(TasksContext);
@@ -44,7 +44,7 @@ export const TaskForm = () => {
     });
 
     const { refreshTasks } = useRefreshTasks();
-
+    
     useEffect(() => {
         if (editedId !== '') {
             const taskToEdit = tasks.filter(task => { return task._id === editedId; })[0];
@@ -94,25 +94,27 @@ export const TaskForm = () => {
 
 
     const filterErrors = (param) => {
+        if (updateTaskErrors && updateTaskErrors.length > 0) {
+            return errors[0].filter(err => {return err.param === param;})[0].msg;
+        }
         if (errors && errors.length > 0) {
             return errors[0].filter(err => {return err.param === param;})[0].msg;
         }
+        
     };
 
     return (
-        <div className='bg-secondary w-full py-6 px-12 mb-20 rounded-lg shadow-md'>
-    
+        <div className='bg-secondary w-full py-6 md:px-12 lg:px-2 xl:px-12  mb-20 rounded-lg xl:shadow-md'>
             <form onSubmit={onSubmit}>
-                <div className='w-full flex items-center justify-between'>
-                    <div className='flex flex-1 items-center '>
-                        <Input type='text' title='Title' className='mr-3' id='title' value={formData.title} onChange={onChange} error={filterErrors('title')} />
-                        <Input type='text' title='Content' className='mr-3' id='content' value={formData.content} onChange={onChange} error={filterErrors('content')}/>
-                        <Input type='datetime-local' title='End' className='mr-3' id='end' value={formData.end} onChange={onChange} error={filterErrors('end')}/>
-                        <Input type='text' title='Photo url' id='photoUrl' value={formData.photoUrl} onChange={onChange} error={filterErrors('photoUrl')}/>
+                {console.log(updateTaskErrors)}
+                <div className='w-full p-3 flex flex-col xl:flex-row items-center xl:justify-between'>
+                    <div className='w-full flex flex-1 flex-col lg:flex-row xl:flex-row items-center lg:mb-6 xl:mb-0 '>
+                        <Input type='text' title='Title' className='mb-3 lg:mb-0 lg:mr-3' id='title' value={formData.title} onChange={onChange} error={filterErrors('title')} />
+                        <Input type='text' title='Content' className='mb-3 lg:mb-0 lg:mr-3' id='content' value={formData.content} onChange={onChange} error={filterErrors('content')}/>
+                        <Input type='datetime-local' title='End' className='mb-3 lg:mb-0 lg:mr-3' id='end' value={formData.end} onChange={onChange} error={filterErrors('end')}/>
+                        <Input type='text' className='mb-6 lg:mb-0' title='Photo url' id='photoUrl' value={formData.photoUrl} onChange={onChange} error={filterErrors('photoUrl')} />
                     </div>
-                    {editedId === '' ? <PrimaryButton type='submit' title='Create' className={'bg-green ml-20'} onClick={onSubmit}/> : <PrimaryButton type='submit' title='Update' className={'bg-green ml-20'} onClick={editTask}/>}
-                    
-                   
+                    {editedId === '' ? <PrimaryButton type='submit' title='Create' className={'bg-green xl:ml-20'} onClick={onSubmit}/> : <PrimaryButton type='submit' title='Update' className={'bg-green xl:ml-20'} onClick={editTask}/>}
                 </div>
             </form>
         </div>

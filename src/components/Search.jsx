@@ -23,7 +23,7 @@ export const Search = () => {
 
     return (
      
-        <div className='w-1/2 rounded-lg shadow-md flex justify-between items-center overflow-hidden px-4 bg-primary'>
+        <div className='w-full xl:w-1/2 rounded-lg shadow-md flex justify-between items-center overflow-hidden px-4 bg-primary'>
             <input type='text' placeholder='Search...' value={value} onChange={handleInput} className='w-full h-full py-4 mr-4 outline-none bg-transparent text-white text-sm placeholder:text-white placeholder:text-sm' />
             <FaSearch fill='#ffffff'/>
         </div>

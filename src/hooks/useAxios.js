@@ -10,13 +10,14 @@ export const useAxios = ({ url, method, data = null, config = null}) => {
    
     const fetchData = async () => {
         try {
-            console.log(data);
             const res = await api[method](url, method === 'get' ? config : data, method === 'get' ? data : config);
             setResponse(res.data);
             setLoading(false);
             setErrors(null);
         } catch (error) {
             const resError = error.response.data.errors;
+            console.log(resError);
+
             setErrors([resError]);
             setLoading(false);
         }

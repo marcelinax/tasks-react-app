@@ -1,5 +1,4 @@
-import { FaSpinner, FaTimes } from 'react-icons/fa';
-
+import { FaSpinner } from 'react-icons/fa';
 import React from 'react';
 
 export const Spinner = () => {

@@ -9,5 +9,6 @@ export const PrimaryButton = ({ title, type, className, onClick }) => {
 
 PrimaryButton.propTypes = {
     title: PropTypes.string,
-    type: PropTypes.string
+    type: PropTypes.string,
+    className: PropTypes.string
 };

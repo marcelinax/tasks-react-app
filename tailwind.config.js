@@ -11,11 +11,11 @@ module.exports = {
                 'pink': '#FA78A2',
                 'green': '#6FC5BE',
                 'gray': '#7C7D85'
-            }
+            },
         },
         fontFamily: {
             'sans': ['Poppins']
         }
     },
-    plugins: [],
+    plugins: [ ]
 };

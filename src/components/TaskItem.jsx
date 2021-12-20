@@ -12,7 +12,6 @@ export const TaskItem = ({ id, title, content, photoUrl, end, finished }) => {
 
     const { refreshTasks } = useRefreshTasks();
     const { setEditedId } = useContext(EditFormContext);
-    const [toggleFinishedTask, setToggleFinishedTask] = useState(false);
 
     const { fetchData: deleteTaskById } = useAxios({
         method: 'delete',
@@ -63,7 +62,6 @@ export const TaskItem = ({ id, title, content, photoUrl, end, finished }) => {
             <div className='w-full p-6'>
                 <div className='w-full flex items-start'>
                     <ToggleButton setValue={changeTaskStatus} value={finished} />
-                    {console.log(checkIfTaskTimeIsExpired())}
                     <div className='ml-3 flex flex-col'>
                         <p className='text-white text-sm '>{content}</p>
                         <p className={`text-xs mt-1 ${checkIfTaskTimeIsExpired() ? 'text-pink' : 'text-green'}`}>{moment(end).calendar({

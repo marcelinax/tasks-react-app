@@ -1,8 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 
 import TaskContext from '../context/tasks/TasksContext';
 import { TaskItem } from './TaskItem';
-import { useAxios } from './../hooks/useAxios';
 
 export const TasksResult = () => {
     const { tasks } = useContext(TaskContext);
