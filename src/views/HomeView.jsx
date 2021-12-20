@@ -5,6 +5,7 @@ import { Option } from '../components/Option';
 import { Search } from '../components/Search';
 import { Select } from '../components/Select';
 import { Spinner } from '../components/Spinner';
+import { TaskFilterProvider } from './../context/taskFilter/TaskFilterContext';
 import { TaskForm } from '../components/TaskForm';
 import { TasksResult } from '../components/TasksResult';
 import { useRefreshTasks } from '../hooks/useRefreshTasks';
@@ -15,7 +16,7 @@ export const HomeView = () => {
     const [selectValue, setSelectValue] = useState('All');
     
     return (
-       
+        
         <EditFormProvider>
             <div className='bg-bg-page w-full min-h-screen' >
                 <div className='container flex flex-col m-auto p-4' >
@@ -38,7 +39,5 @@ export const HomeView = () => {
                 </div>
             </div>
         </EditFormProvider>
-       
-        
     );
 };

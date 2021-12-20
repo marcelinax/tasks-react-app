@@ -1,10 +1,21 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { FaSearch } from 'react-icons/fa';
+import TaskFilterContext from '../context/taskFilter/TaskFilterContext';
 
 export const Search = () => {
     
     const [value, setValue] = useState('');
+    const { taskFilter, setTaskFilter } = useContext(TaskFilterContext);
+    
+    useEffect(() => {
+       
+        setTaskFilter({
+            ...taskFilter,
+            query: value
+        });
+
+    },[value]);
 
     const handleInput = (e) => {
         setValue(e.target.value);

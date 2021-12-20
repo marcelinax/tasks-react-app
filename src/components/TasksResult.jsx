@@ -11,7 +11,7 @@ export const TasksResult = () => {
     return (
         <div className='flex w-full flex-col'>
             {tasks.map(task => {return (
-                <TaskItem key={task._id} id={task._id} title={task.title} content={task.content} photoUrl={task.photoUrl} end={task.end} />
+                <TaskItem key={task._id} id={task._id} title={task.title} content={task.content} photoUrl={task.photoUrl} end={task.end} finished={task.finished} />
             );})}
         </div>
     );

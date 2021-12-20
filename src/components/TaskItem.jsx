@@ -1,5 +1,5 @@
 import { FaPen, FaTimes } from 'react-icons/fa';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 import EditFormContext from '../context/editForm/EditFormContext';
 import PropTypes from 'prop-types';
@@ -8,15 +8,21 @@ import moment from 'moment';
 import { useAxios } from './../hooks/useAxios';
 import { useRefreshTasks } from '../hooks/useRefreshTasks';
 
-export const TaskItem = ({id, title, content, photoUrl, end }) => {
+export const TaskItem = ({ id, title, content, photoUrl, end, finished }) => {
 
     const { refreshTasks } = useRefreshTasks();
     const { setEditedId } = useContext(EditFormContext);
+    const [toggleFinishedTask, setToggleFinishedTask] = useState(false);
 
-    const { fetchData: deleteTaskById } = useAxios({ 
+    const { fetchData: deleteTaskById } = useAxios({
         method: 'delete',
         url: `/${id}`,
         
+    });
+
+    const { fetchData: toggleTaskStatus } = useAxios({
+        method: 'post',
+        url: `/toggle/${id}`,
     });
 
     
@@ -30,9 +36,20 @@ export const TaskItem = ({id, title, content, photoUrl, end }) => {
         setEditedId(id);
     };
 
+    const changeTaskStatus = async () => {
+        await toggleTaskStatus();
+        await refreshTasks();
+    };
+
+    const checkIfTaskTimeIsExpired = () => {
+        if (moment().diff(end)>=0) return true;
+        return false;
+    };
+
 
     return (
-        <div className='w-full bg-primary rounded-lg overflow-hidden shadow-md mb-5'>
+        <div className={`w-full bg-primary rounded-lg overflow-hidden shadow-md mb-5 ${finished && 'opacity-50'}`
+        }>
             <div className='w-full bg-secondary p-6 flex justify-between'>
                 <div className='flex items-center h-full'>
                     {photoUrl && <div style={{ backgroundImage: `url(${photoUrl})` }} className='h-14 w-14 bg-center bg-cover bg-no-repeat rounded-lg mr-5' />}
@@ -45,10 +62,11 @@ export const TaskItem = ({id, title, content, photoUrl, end }) => {
             </div>
             <div className='w-full p-6'>
                 <div className='w-full flex items-start'>
-                    <ToggleButton/>
+                    <ToggleButton setValue={changeTaskStatus} value={finished} />
+                    {console.log(checkIfTaskTimeIsExpired())}
                     <div className='ml-3 flex flex-col'>
                         <p className='text-white text-sm '>{content}</p>
-                        <p className='text-green text-xs mt-1'>{moment(end).calendar({
+                        <p className={`text-xs mt-1 ${checkIfTaskTimeIsExpired() ? 'text-pink' : 'text-green'}`}>{moment(end).calendar({
                             lastDay : '[Yesterday at]  HH:mm',
                             sameDay : '[Today at] HH:mm',
                             nextDay : '[Tomorrow] HH:mm',
